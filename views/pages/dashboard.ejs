@@ -1,0 +1,227 @@
+ 
+   
+    <!DOCTYPE html>
+    <html>
+      
+      <head>
+      <%- include('../partials/head.ejs') %> 
+      <title>Church Dashboard</title>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+     
+      <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            min-width:100px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: #3390c6;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .nav a {
+            color: #333;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav a:hover {
+            background-color: #e0e0e0;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-left:20px;
+            margin-right:20px;
+            margin-top:50px;
+            margin-bottom:20px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card h2 {
+            margin: 20px 0;
+            font-size: 24px;
+            color: #3390c6;
+        }
+
+        .card p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .card i {
+            font-size: 40px;
+            color: #3390c6;
+            margin-bottom: 10px;
+        }
+
+        .dropdown-content {
+            display: none;
+            background-color: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 100%; 
+            margin-top: 20px;
+            border-radius: 10px; 
+            animation-name : ddsp;
+            animation-iteration-count : 1;
+            animation-duration:2s;
+        } 
+
+        @keyframes ddsp {
+             from{
+            margin-left:-300px;  
+             }  
+
+             to{
+                margin-top:0px;
+             }
+        }
+
+        .dropdown-content p {
+            margin: 10px 0;
+        }
+
+        .dropdown-content button {
+            padding: 10px 20px;
+            background-color: #3390c6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content button:hover {
+            background-color: #2878a9;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+      </head>
+  
+      <body>  
+       
+           <!---Navigation starts--->
+        <div class="enclose">
+          <%- include('../partials/navbar.ejs') %>   
+   <!----Homebar start--> 
+   <div class="homebar">
+     <p class='big'>DASHBOARD</p>
+     <p class="small">You are welcome to your membership dashboard</p>
+      <div style='display:flex'> <a href='/'>Go Home</a>  <i class="fa fa-long-arrow-right"></i> </div>
+   </div>  
+   <!----Homebar end-->  
+    </div> 
+    <!---Navigation ends--->
+
+  
+
+<div class="container"> 
+
+    <div class="dashboard">
+        <div class="card" id="account">
+            <i class="fa fa-user"></i>
+            <h2>Manage Account Information</h2>
+            <p>Click to view and update your account details.</p>
+        </div>
+        <div class="card" id="blog">
+            <i class="fas fa-blog"></i>
+            <h2>Blog Posts</h2>
+            <p>Navigate to our latest blog posts and articles.</p>
+        </div>
+        <div class="card" id="events">
+            <i class="fas fa-calendar-alt"></i>
+            <h2>Upcoming Events</h2>
+            <p>See what's coming up in our church calendar.</p>
+        </div>
+    </div>
+
+    <div class="dropdown-content" id="dropdown-content">
+        <p><strong>Username: </strong><%=user.reguser%></p>
+        <p><strong>Email: </strong><%=user.regemail%></p>
+        <button id="settings">Account Settings</button>
+    </div>
+</div>
+     
+
+<%- include('../partials/footer.ejs') %> 
+
+<script>
+
+    document.getElementById('blog').addEventListener('click', ()=>{
+       window.location.href = '/blogposts';
+    }); 
+
+    document.getElementById('events').addEventListener('click', ()=>{
+       window.location.href = '/upcoming-events';
+    });
+
+
+    document.getElementById('account').addEventListener('click', function() {
+        const dropdown = document.getElementById('dropdown-content');
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Close the dropdown if clicked outside
+    document.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('dropdown-content');
+        const isClickInside = document.getElementById('account').contains(event.target) || dropdown.contains(event.target);
+        if (!isClickInside) {
+            dropdown.style.display = 'none';
+        }
+    });    
+
+    document.getElementById('settings').addEventListener('click', function() {
+      window.location.href = '/dashboard-edit';
+      });
+</script>
+
+</body>
+</html>

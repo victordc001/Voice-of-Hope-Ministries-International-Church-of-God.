@@ -1,0 +1,54 @@
+ 
+  
+   
+
+<!DOCTYPE html>
+<html>
+  <head>  
+    <%- include('../partials/head.ejs') %> 
+    <title>Blog</title>    
+  </head>  
+  <body>
+    <%- include('../partials/navbar.ejs') %>  <br><br><br>
+  
+       
+   <% if(upc.length > 0){ %>  
+    <div style='border:1px solid white' class="storyenclose">
+      <% upc.forEach((eachc)=> { %>     
+         <div class="story">
+         <img src="<%= eachc.postImage.path %>" alt="upcoming-event">  
+      </div>  
+   <% }); %>    
+  </div>  
+<% } else { %> 
+
+  <div class="nopost"> 
+     <p>No Upcoming Events yet, please come back later😊</p>  
+  </div>
+ <% } %>
+       
+ 
+    <%- include('../partials/footer.ejs') %>      
+
+    <script>
+          document.addEventListener('DOMContentLoaded', ()=>{ 
+             var rdp = document.querySelectorAll('.rdp');
+             var edp = document.querySelectorAll('.edp');  
+
+               rdp.forEach(each=>{
+                     for(i=0; i<edp.length; i++){
+                         if(edp[i]){
+                          each.style.display = 'none';
+                         }
+                     }
+               });
+
+          }); 
+
+          
+
+    </script> 
+
+  </body>
+</html>
+ 

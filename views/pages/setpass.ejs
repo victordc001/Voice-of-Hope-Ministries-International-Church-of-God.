@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs'); %>
+    <title>Reset Password</title> 
+    <style>
+        #reset p {
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    
+    <!---Navigation starts--->
+    <div class="enclose">
+        <%- include('../partials/navbar.ejs') %>   
+        <!----Homebar start--> 
+        <div class="homebar">
+            <p class='big'>RESET PASSWORD</p>
+            <p class="small">Enter your new password</p>
+            <div style='display:flex'> <a href='/'>Go Home</a>  <i class="fa fa-long-arrow-right"></i> </div>
+        </div>  
+        <!----Homebar end-->  
+    </div> 
+    <!---Navigation ends---> 
+
+    <div theuser='<%=ouser._id%>' class="loginf">
+        <form id="reset">
+            <p>Enter new password and click on reset button to continue</p>
+            <input id="newpass" type="password" placeholder='Enter new password' required>
+            <p id="errsignup"></p> 
+            <input id="confirmpass" type="password" placeholder='Re-enter new password' required>  
+            <p id="twins"></p>
+            <button class='rese' type="submit">Reset</button>
+        </form>
+    </div>  
+
+    <%- include('../partials/footer.ejs') %>
+
+    <script>  
+        var newpass = document.getElementById('newpass');
+        var confirmpass = document.getElementById('confirmpass');
+        var errsignup = document.getElementById('errsignup');
+        var twins = document.getElementById('twins');
+        var resee = document.querySelector('.rese');
+
+        function validatePassword() {
+            if (newpass.value.search(/[a-z]/) < 0) {
+                errsignup.innerHTML = 'Incomplete! Password must contain lowercase character';
+                errsignup.style.color = 'red';
+                return false;
+            } 
+            if (newpass.value.search(/[A-Z]/) < 0) {
+                errsignup.innerHTML = 'Incomplete! Password must contain uppercase character';
+                errsignup.style.color = 'red';
+                return false;
+            }
+            if (newpass.value.search(/[0-9]/) < 0) {
+                errsignup.innerHTML = 'Invalid! Password must contain number';
+                errsignup.style.color = 'red';
+                return false;
+            }
+            if (newpass.value.search(/[!@#^&*$£%]/) < 0) {
+                errsignup.innerHTML = 'Password must contain at least one symbol';
+                errsignup.style.color = 'red';
+                return false;
+            }
+            if (newpass.value.length < 8) {
+                errsignup.innerHTML = 'Oops! Password is too short and weak';
+                errsignup.style.color = 'red';
+                return false;
+            }
+            if (newpass.value.length > 24) {
+                errsignup.innerHTML = 'Oops! Password is too long';
+                errsignup.style.color = 'red';
+                return false;
+            }
+            errsignup.innerHTML = 'Password is strong';
+            errsignup.style.color = 'green';
+            return true;
+        }
+
+        function validateConfirmPassword() {
+            if (newpass.value !== confirmpass.value) {
+                twins.innerHTML = 'Fields must be of same value';
+                twins.style.color = 'red';
+                return false;
+            } 
+            twins.innerHTML = 'Perfect';
+            twins.style.color = 'green';
+            return true;
+        }
+        
+
+        var rst = document.getElementById('reset');   
+        rst.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errsignup.innerHTML = '';
+            twins.innerHTML = '';
+
+            if (!validatePassword() || !validateConfirmPassword()) {
+                return;
+            }
+
+            resee.innerHTML = 'Resetting..';
+            const theUser = document.querySelector('.loginf');
+            const userid = theUser.getAttribute('theuser');
+            const data = {
+                regpass: confirmpass.value,
+            };
+
+            try {
+                const response = await fetch(`/submitpass/${userid}`, {
+                    body: JSON.stringify(data),
+                    method: 'put',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    throw response;
+                }
+
+                resee.innerHTML = 'Reset';
+                alert('Password updated successfully, please login with your new password');
+                window.location.href = '/login';
+            } catch (err) {
+                resee.innerHTML = 'Reset';
+                const error = await err.text();
+                alert(error);
+            }
+        });
+    </script>
+
+</body>
+</html>

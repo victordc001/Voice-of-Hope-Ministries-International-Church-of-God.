@@ -1,0 +1,118 @@
+ 
+
+<!---news start-->
+<div class="news">  
+   <div> 
+       <p class='small'>News & Highlights</p>
+       <p class="big">Our Impact</p>
+   </div> 
+
+   <div>
+       <p class="content">Discover the latest stories and features showcasing how our church is making a difference in the community and beyond.</p>
+       <div style='display:inline-flex'>
+           <p class="view">Explore More</p> 
+           <i class="fa fa-long-arrow-right"></i>
+       </div>
+   </div> 
+</div>
+
+<!----news end-->
+  
+
+
+<!-----Stories start---->
+<% if(randomCon.length>0) { %>
+   <div class="storyenclose"> 
+      <% randomCon.forEach((rcon)=>{ %>  
+    <div class="story">
+       <img src='<%=`/${rcon.postImage.path}`%>' alt="stories">
+    <div class="cover">
+        <div class="heading">
+           <p class="first">Interesting Blog post</p> 
+           <% const posteddate = new Date(rcon.date)%>
+           <% const year = posteddate.getFullYear(); %>
+           <% const month = posteddate.toLocaleString('en-US', {month : 'long' }) %>
+           <% const day = posteddate.getDate(); %>
+           <p class="second"> <%= month + '-' + day + ' ' + year %> </p>
+        </div> 
+        <p class="title"><%=rcon.posttitle%></p>
+        <p class="content"><%=rcon.postbody.length > 180 ? `${rcon.postbody.substring(0, 180)}...` : rcon.postbody %></p>
+       <div class="navigate"><i class='fa fa-plane'></i> <a href='<%=`/blogposts/${rcon._id}`%>'>Check Blogs</a> </div>
+       </div> 
+    </div>  
+    <% }); %>
+       </div> 
+   <% } %>
+
+    <div class="viewall">
+        <button>
+       <p>View all Stories</p>
+        <i class="fa fa-arrow-right"></i>
+        </button>
+    </div>
+<!-----Stories end---->
+ 
+   
+<!-----gratitude start---->
+<div class="gratitude"> 
+
+    <div>
+    <img src='/images/onoch.jpg' alt="gratitude">
+    </div>
+
+    <div>
+        <p class="big">Welcome</p>
+        <p class='small'>We're glad you're here</p>
+        <p class="content">Welcome to Voice of Hope Ministries International Church of God! We are thrilled to have you join our community. Our ministry is dedicated to spreading hope, love, and faith through various programs designed to uplift and support individuals and families. At Voice of Hope, we believe every person has a unique purpose and calling, and we strive to create an environment where everyone feels valued and empowered to pursue their spiritual journey. Our mission is to share the message of hope and salvation through Christ, and we engage in numerous outreach programs to meet the needs of those around us. Thank you for visiting us, and we look forward to journeying with you in faith and fellowship.</p>
+       <button id="whoweare"><i class='fa fa-question'></i> Who we are</button>
+    </div>
+
+</div>
+<!-----gratitude end---->
+ 
+
+
+<!-----group start---->
+  <div class="group">
+    <p class="small">Voice of Hope Ministries International Church of God</p>
+    <p class="big">Community Outreach</p>
+    <p class="title">Explore our extensive community engagement initiatives detailed below</p>
+    
+     <div class="categories"> 
+
+        <div>
+         <img src='/images/onowac.png' alt="groups">
+         <p class="titleb">Sunday Worship</p>
+         <p class="content">Join us every Sunday for a spirit-filled worship experience. Our services are designed to uplift and inspire, featuring powerful sermons, vibrant music, and heartfelt prayers. Whether you are a long-time member or a first-time visitor, you will find a warm welcome and a meaningful encounter with God.</p>
+      </div>  
+
+      <div>
+        <img src='/images/onowab.png' alt="groups">
+        <p class="titleb">Midweek Bible Study</p>
+        <p class="content">Dive deeper into the Word of God with our midweek Bible study sessions. These gatherings offer an intimate setting for exploring scripture, asking questions, and engaging in thoughtful discussion. Led by our pastoral team, Bible study is a time of growth and fellowship for believers at all stages of their faith journey.</p>
+     </div> 
+
+      <div>
+        <img src='/images/onowaa.png' alt="groups">
+        <p class="titleb">Testimonials</p>
+        <p class="content">Read stories of transformation from members of our congregation and those we serve. Hear firsthand how Voice of Hope Ministries International Church of God has impacted lives and brought positive change through faith and community action.</p>
+     </div>
+
+        </div>
+
+
+</div>
+<!-----group end--->  
+
+<script>
+    var va = document.querySelector('.viewall'); 
+    var whoweare = document.querySelector('#whoweare');
+    whoweare.onclick = ()=>{
+       window.location.href = '/aboutus';
+    } 
+    va.onclick = ()=>{
+      window.location.href = '/blogposts';
+    }
+</script>
+
+

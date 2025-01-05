@@ -1,0 +1,214 @@
+ 
+   
+  <!DOCTYPE html>
+  <html>
+    
+    <head>
+    <%- include('../partials/head.ejs') %> 
+
+    <style> 
+
+        .testimonies {
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            min-width:100px;
+            margin-left:20px;
+            margin-right:20px;
+            margin-top:35px;
+        } 
+
+        .testimonies i{
+            font-weight:bold;
+            font-size:35px;
+        }
+    
+        .headingtes {
+            display: flex;
+            justify-content: space-between; 
+            margin-bottom: 20px;
+        }  
+    
+        .headingtes p {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3390c6;
+            font-family: 'Poppins', sans-serif;
+        } 
+
+        .tesnav{
+            display:flex;
+        }
+    
+        .tesnav i { 
+            cursor: pointer;
+        } 
+
+        .tesnav i:hover{
+            background-color:dodgerblue;
+            padding-left:6px;
+            padding-right:6px; 
+            height:35px;
+        }
+    
+        .randtes {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    
+        .randtes .bigtes,
+        .randtes .tesbody {
+            transition: opacity 0.5s ease-in-out;
+        }
+    
+        .randtes .bigtes.fade-out,
+        .randtes .tesbody.fade-out {
+            opacity: 0;
+        }
+    
+        .randtes .bigtes.fade-in,
+        .randtes .tesbody.fade-in {
+            opacity: 1;
+        }
+    
+        .randtes .bigtes {
+            font-size: 20px;
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 10px;
+        }
+    
+        .randtes .tesbody {
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            color: #555;
+            margin-bottom: 20px;
+        }
+    
+        .randtes button {
+            padding: 10px 20px;
+            background-color: dodgerblue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s ease;
+        }
+    
+        .randtes button:hover {
+            background-color: deepskyblue;
+        }
+    
+       
+    </style>
+    
+
+    
+    </head>
+
+    <body>  
+     
+         <!---Navigation starts--->
+      <div class="enclose">
+        <%- include('../partials/navbar.ejs') %>   
+ <!----Homebar start--> 
+ <div class="homebar">
+   <p class='big'>TESTIMONIES</p>
+   <p class="small">View testimonies shared by people , you can also share yours</p>
+    <div style='display:flex'> <a href='/'>Go Home</a>  <i class="fa fa-long-arrow-right"></i> </div>
+ </div>  
+ <!----Homebar end-->  
+  </div> 
+  <!---Navigation ends--->
+
+
+       <div class="testimonies">
+        <!--Heading starts-->
+     <div class="headingtes"> 
+        <p>Our Member's Testimonies</p>
+        <div class="tesnav"> <i class="fa fa-angle-left" style='color:brown' id="lefttes"></i> <i class="fa fa-angle-right" style='color:brown; margin-left:20px' id="righttes"></i> </div>
+     </div> 
+        <!--Heading ends-->
+      
+
+          <!--Display testimony starts-->
+        <div class="randtes">
+        <p class="bigtes"></p>
+        <p class="tesbody"></p> 
+       <a href="/share-testimony"> <button>Share Testimony</button> </a>
+        </div> 
+         <!--Display testimony ends-->
+       </div>
+
+       <%- include('../partials/footer.ejs') %>    
+
+       <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            var testimonies = [
+                {
+                    username: 'Ifunanya Nwachukwu',
+                    testimony: 'I had been praying for a specific need for a long time, and there were times I doubted. But God answered my prayers in a way I never expected. It reminded me that His timing is perfect and His ways are higher than ours.',
+                },
+                {
+                    username: 'Obinna Uzo',
+                    testimony: 'For years, I battled with addiction and felt like there was no way out. But through the support and prayers of this congregation, I found the strength to overcome it. I"m now living a life free from addiction, thanks to God"s grace.',
+                },
+                {
+                    username: 'Chiamaka Anene',
+                    testimony: 'I was diagnosed with a serious illness and felt hopeless. But through the prayers and support of this church, God miraculously healed me. I"m now completely healthy and eternally grateful for His mercy and love.',
+                },
+            ];
+    
+            var lt = document.getElementById('lefttes');
+            var rt = document.getElementById('righttes');
+            var usernm = document.querySelector('.bigtes');
+            var tesbody = document.querySelector('.tesbody');
+            var currentIndex = 0;
+    
+            function updateDisplay() {
+                usernm.innerHTML = testimonies[currentIndex].username;
+                tesbody.innerHTML = testimonies[currentIndex].testimony;
+            }
+    
+            function animateContent() {
+                usernm.classList.add('fade-out');
+                tesbody.classList.add('fade-out');
+                setTimeout(() => {
+                    updateDisplay();
+                    usernm.classList.remove('fade-out');
+                    tesbody.classList.remove('fade-out');
+                    usernm.classList.add('fade-in');
+                    tesbody.classList.add('fade-in');
+                    setTimeout(() => {
+                        usernm.classList.remove('fade-in');
+                        tesbody.classList.remove('fade-in');
+                    }, 500);
+                }, 500);
+            }
+    
+            updateDisplay();
+    
+            lt.onclick = () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    animateContent();
+                }
+            };
+    
+            rt.onclick = () => {
+                if (currentIndex < testimonies.length - 1) {
+                    currentIndex++;
+                    animateContent();
+                }
+            };
+        });
+    </script>
+    
+    </body>
+
+  </html>

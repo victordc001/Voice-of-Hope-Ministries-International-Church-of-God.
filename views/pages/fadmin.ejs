@@ -1,0 +1,188 @@
+  
+
+<!DOCTYPE html>
+<html>
+  <head>  
+    <%- include('../partials/head.ejs') %> 
+    <title>Publish a post</title>    
+  </head>  
+  <body> 
+    <!---Navigation starts--->
+    <div class="enclose">
+        <%- include('../partials/navbar.ejs') %>
+
+        <!----Homebar start-->
+        <div class="homebar">
+            <p class='big'>ADMIN CONTROL</p>
+            <p class="small">Publish a post here</p>
+            <div style='display:flex'> <a href='/'>Go Home</a> <i class="fa fa-long-arrow-right"></i> </div>
+        </div>
+        <!----Homebar end-->
+    </div>
+    <!---Navigation ends---> 
+  
+       <div class="postcontent">   
+          <!----------categories---------------->
+  
+          <p class="bigg">Compose a post</p> 
+          <div class="categories"> 
+               <button id="po1">Blog</button>  
+               <button id="po2">Upcoming events</button>   
+             </div>
+  
+            <form id="postar" enctype="multipart/form-data">     
+              <input id="potitle" type="text" placeholder="Post title e.g The wall of jerico" required>  
+              <input id="poverse" type="text" placeholder="Bible verse e.g 2cor chapt 5 vs 2" required>
+              <input id="author" type="text" placeholder="Author name" required>
+              <textarea id="postbodyb" required></textarea>
+              <input type="file" id='adminfile' accept="image/*"  name='postimage' required>
+              <button class="postbut">Publish blog post</button>  
+              </form>       
+  
+  
+              <form id="postar2" enctype="multipart/form-data">     
+                  <input id="potitle2" type="text" value='Upcoming Event' disabled>  
+                  <input type="file" id='adminfile2' accept="image/*"  name='postimage' required>
+                  <button class="postbut2">Publish upcoming event</button>  
+                  </form>    
+  
+         </div>      
+   </div>
+    
+   <%- include('../partials/footer.ejs') %>
+  
+      <script> 
+  
+  
+          ()=>{ 
+                   var po1 = document.getElementById('po1');
+                   var po2 = document.getElementById('po2');  
+                   var postar = document.getElementById('postar');  
+                   var postar2 = document.getElementById('postar2');   
+                   postar.style.display = 'none'; 
+                   postar2.style.display = 'none'; 
+                   var counter = 0;
+                     }
+   
+  
+                po1.onclick = function() { 
+                  event.target.style.backgroundColor = '#3090c6'; 
+                  po2.style.backgroundColor = 'lightblue';
+                  counter = 1;
+                  postar.style.display = 'block';  
+                  postar2.style.display = 'none'; 
+                }   
+  
+                po2.onclick = function() { 
+                  event.target.style.backgroundColor = '#3090c6'; 
+                  po1.style.backgroundColor = 'lightblue'; 
+                  counter = 2;
+                  postar2.style.display = 'block';  
+                  postar.style.display = 'none'; 
+                }  
+   
+   
+   
+                postar.addEventListener('submit', async (event)=>{
+                  const pb = document.querySelector('.postbut'); 
+                          event.preventDefault();  
+                       pb.innerHTML = 'POSTING...';
+                       pb.style.opacity = '0.855';
+                 const potitle = document.getElementById('potitle').value;
+                 const poverse = document.getElementById('poverse').value; 
+                 const postbody = document.getElementById('postbodyb').value;
+                 const author = document.getElementById('author').value;
+                  const admfile = document.getElementById('adminfile').files[0];
+                   
+  
+                        const data = new FormData();
+                        data.append('posttitle', potitle);
+                        data.append('bibleverse', poverse);
+                        data.append('postbody', postbody);
+                        data.append('author', author);
+                        data.append('postimage', admfile);  
+  
+                        try{
+   
+                  const resp = await fetch('/postingcontent', { 
+                       method :'post',
+                       body : data,   
+                  }); 
+                  
+                 if(!resp.ok){
+                    throw resp; 
+                 }   
+  
+                    const posted = document.getElementById('posted');
+                    pb.style.opacity = '1'; 
+                 setTimeout( ()=>{  
+                 pb.innerHTML = 'POSTED';
+                 }, 4000);
+  
+                 setTimeout( ()=>{ 
+                 location.reload();
+                 }, 6000);
+              }
+            
+  
+                  catch(err){
+                    console.log(err);
+                    const error = await err.text();
+                    alert(error);
+                    location.reload();
+                  }    
+                 
+                });    
+  
+  
+                //posting journal  
+                postar2.addEventListener('submit', async (event)=>{
+                  const pb = document.querySelector('.postbut2'); 
+                          event.preventDefault();  
+                       pb.innerHTML = 'POSTING...';
+                       pb.style.opacity = '0.855';
+                 const potitle = document.getElementById('potitle2').value; 
+                  const admfile = document.getElementById('adminfile2').files[0];
+                   
+  
+                        const data = new FormData();
+                        data.append('posttitle', potitle); 
+                        data.append('postimage', admfile);  
+  
+                        try{
+   
+                  const resp = await fetch('/postingcontent2', { 
+                       method :'post',
+                       body : data,   
+                  }); 
+                  
+                 if(!resp.ok){
+                    throw resp; 
+                 }   
+  
+                    const posted = document.getElementById('posted');
+                    pb.style.opacity = '1'; 
+                 setTimeout( ()=>{  
+                 pb.innerHTML = 'POSTED';
+                 }, 4000);
+  
+                 setTimeout( ()=>{ 
+                 location.reload();
+                 }, 6000);
+              }
+            
+  
+                  catch(err){
+                    console.log(err);
+                    const error = await err.text();
+                    alert('Error processing!');
+                    location.reload();
+                  }    
+                 
+                });  
+   
+          </script> 
+          </body>
+          </html>
+  
+      

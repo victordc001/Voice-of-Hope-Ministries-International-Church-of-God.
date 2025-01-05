@@ -1,0 +1,66 @@
+ 
+   
+
+<!DOCTYPE html>
+<html>
+  <head>  
+    <%- include('../partials/head.ejs') %> 
+    <title>Blog</title>    
+  </head>  
+  <body>
+    <%- include('../partials/navbar.ejs') %>  <br><br><br>
+  
+       
+   <% if(confe.length > 0){ %>  
+    <div style='border:1px solid white' class="storyenclose">
+      <% confe.forEach((eachc)=> { %>     
+        <a style="text-decoration:none; color:#212121" href='/blogposts/<%= eachc._id %>'> 
+          <div class="story">
+  <img src="<%= eachc.postImage.path %>" alt="blogpost"> 
+<div class="cover">
+   <div class="heading">
+      <p class="first"> <%= eachc.bibleverse %></p>
+      <% const posteddate = new Date(eachc.date)%>
+      <% const year = posteddate.getFullYear(); %>
+      <% const month = posteddate.toLocaleString('en-US', {month : 'long' }) %>
+      <% const day = posteddate.getDate(); %>
+      <p class="second"> <%= month + '-' + day + ' ' + year %> </p>
+   </div> 
+   <p class="title"><%= eachc.posttitle %></p>
+   <p class="content"><%= eachc.postbody.length > 180 ? `${eachc.postbody.substring(0, 80)}...` : eachc.postbody %></p>
+   </div> 
+</div> </a> 
+   <% }); %>   
+  </div>  
+<% } else { %> 
+
+  <div class="nopost"> 
+     <p>No Blogpost available yet, please come back later😊</p>  
+  </div>
+ <% } %>
+       
+ 
+    <%- include('../partials/footer.ejs') %>      
+
+    <script>
+          document.addEventListener('DOMContentLoaded', ()=>{ 
+             var rdp = document.querySelectorAll('.rdp');
+             var edp = document.querySelectorAll('.edp');  
+
+               rdp.forEach(each=>{
+                     for(i=0; i<edp.length; i++){
+                         if(edp[i]){
+                          each.style.display = 'none';
+                         }
+                     }
+               });
+
+          }); 
+
+          
+
+    </script> 
+
+  </body>
+</html>
+ 

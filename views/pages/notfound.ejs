@@ -1,0 +1,32 @@
+ 
+  
+   
+   <!DOCTYPE html>
+   <html>
+     
+     <head>
+     <%- include('../partials/head.ejs') %>
+     </head>
+ 
+     <body>  
+
+        <!---Navigation starts--->
+      <div class="enclose">
+        <%- include('../partials/navbar.ejs') %>  
+ 
+ <!----Homebar start--> 
+ <div class="homebar">
+   <p class='big'>NOT FOUND</p>
+   <p class="small">This page you are trying to access does not exist please re-check the url.</p>
+    <div style='display:flex'> <a href='/'>Go Back</a>  <i class="fa fa-long-arrow-right"></i> </div>
+ </div>  
+ <!----Homebar end-->  
+  </div> 
+  <!---Navigation ends--->  
+
+  <p class="nopost">Page not found 👀 , please re-check the url entered.</p>
+ 
+        <%- include('../partials/footer.ejs') %> 
+     </body>
+ 
+   </html>

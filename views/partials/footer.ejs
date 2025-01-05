@@ -1,0 +1,122 @@
+ 
+ <div class="footer"> 
+    <div class='footernavs'> 
+         <div>  
+            <a href="/">Home</a> <br>  
+            <a href="/donate">Donate</a> <br>
+            <% if(user){ %>    
+            <a href="/logout">Log out</a> <br>  
+            <% } else { %>
+            <a href="/login">Login</a> <br>
+            <a href="/signup">Become a member</a> <br>  
+            <% } %>  
+         </div> 
+
+         <div>
+            <a href="/blogposts">Stories</a> <br>
+            <a href="/upcoming-events">Upcoming Events</a> <br>  
+            <a href="/aboutus">About us</a> <br> 
+         </div>   
+        </div>    
+</div> 
+
+<!----Newsletter-->
+  
+
+<div class="newsletter"> 
+   <p class="big">Sign up for our weekly newsletter @ <span>Voice Of Hope Ministries International Church of God</span></p>
+   <p class="small">We are blessed with an incredible church, and each week we share inspiring stories that highlight how our members are fulfilling God's plan by spreading His love to those around us.</p>
+     
+
+  <form id='newslet'>
+   <div class="inpbtn"> 
+ <input id="validemail" type="email" placeholder="Enter email address" required>
+ <button id="ssc">Subscribe</button>   
+ </div>
+</form> 
+  
+<p class="by">Voice Of Hope Ministries International Church of God</p> 
+<p class="developer">Developed by VICOTECH</p>  
+<p class="privacy">All rights reserved 2024.</p> 
+</div>    
+
+
+
+<script>
+                     
+         
+   var sub = document.getElementById('newslet');   
+   sub.addEventListener('submit', async (vm)=>{
+     var ssc = document.getElementById('ssc');
+    ssc.style.opacity = '0.855';
+        vm.preventDefault(); 
+    var vml = document.getElementById('validemail').value; 
+    const dataa = {
+          email : vml,
+    }   
+
+
+   try{
+    const resp = await fetch('/subscribeemail', {
+     body : JSON.stringify(dataa),
+     method : 'post',
+     headers : {
+           'Content-Type' : 'application/json',
+           Accept : 'application/json',
+     },
+    });
+
+    if(!resp.ok){
+      throw resp;
+    } 
+    ssc.style.opacity = '1';
+    alert('Thanks for subscribing to our newsletter');
+ }
+
+ catch(err){
+     const error = await err.text();
+     alert(error);
+ }
+ 
+ });  
+
+</script>
+<script>
+                     
+         
+   var sub = document.getElementById('newslet');   
+   sub.addEventListener('submit', async (vm)=>{
+     var ssc = document.getElementById('ssc');
+    ssc.style.opacity = '0.855';
+        vm.preventDefault(); 
+    var vml = document.getElementById('validemail').value; 
+    const dataa = {
+          email : vml,
+    }   
+
+
+   try{
+    const resp = await fetch('/subscribeemail', {
+     body : JSON.stringify(dataa),
+     method : 'post',
+     headers : {
+           'Content-Type' : 'application/json',
+           Accept : 'application/json',
+     },
+    });
+
+    if(!resp.ok){
+      throw resp;
+    } 
+    ssc.style.opacity = '1';
+    alert('Thanks for subscribing to our newsletter');
+ }
+
+ catch(err){
+     const error = await err.text();
+     alert(error);
+ }
+ 
+ });  
+
+</script>

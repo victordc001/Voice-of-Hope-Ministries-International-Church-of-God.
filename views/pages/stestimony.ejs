@@ -1,0 +1,195 @@
+   
+  
+  <!DOCTYPE html>
+  <html>
+    
+    <head>
+    <%- include('../partials/head.ejs') %>
+    </head>
+
+    <body>  
+
+      <!---Navigation starts--->
+      <div class="enclose">
+       <%- include('../partials/navbar.ejs') %>  
+
+<!----Homebar start--> 
+<div class="homebar">
+  <p class='big'>SHARE YOUR TESTIMONY HERE</p>
+  <p class="small">What has God done for you ?</p>
+   <div style='display:flex'> <a href='/'>Go Home</a>  <i class="fa fa-long-arrow-right"></i> </div>
+</div>  
+<!----Homebar end-->  
+ </div> 
+ <!---Navigation ends--->
+
+<div class='centerme'>
+ 
+    
+   <div class="loginf">
+
+     <form id='ttmy'>
+
+       <input type="text" id="mta" placeholder="First name" required>
+       <input type="text" id="mtb" placeholder="second name" required><br>
+       <textarea id="txtbody" required>Your testimony in few words...</textarea>
+       <p id="errtest"></p>
+       <button id="mtbut">Submit</button>
+
+       </form>
+
+   </div>  
+ </div> 
+ <%- include('../partials/footer.ejs') %>  
+ 
+            
+   <script> 
+           
+
+                ()=>{
+             var mta = document.getElementById('mta');
+             var mtb = document.getElementById('mtb');  
+             var mtbut = document.getElementById('mtbut'); 
+             var errtest = document.getElementById('errtest');
+
+                }
+
+         
+                mta.addEventListener('keyup', ()=>{ 
+
+              if(mta.value.length > 8){
+                 errtest.innerHTML = 'First name length must not be more than 8 characters';
+                 errtest.style.color = 'red';
+                 errtest.style.fontSize = '16px';
+                 errtest.style.marginTop = '7px';
+                 errtest.style.fontWeight = 'bold';
+                 errtest.style.fontFamily = 'helvetica';
+                 errtest.style.textAlign = 'center';
+                 mtbut.disabled = true;
+                 mtbut.style.opacity = '0.2';
+              }    
+
+
+               
+else if(mta.value.length < 5){
+   errtest.innerHTML = 'First name length cannot be less than 5 characters';
+   errtest.style.color = 'red';
+   errtest.style.fontSize = '16px'; 
+   errtest.style.marginTop = '7px';
+   errtest.style.fontWeight = 'bold';
+   errtest.style.fontFamily = 'helvetica';
+   errtest.style.textAlign = 'center';
+                 mtbut.disabled = true;
+                 mtbut.style.opacity = '0.2';
+} 
+
+                 else{
+                  errtest.style.color = 'grey'; 
+                 errtest.style.fontSize = '17px';
+                 errtest.style.fontWeight = 'bold'; 
+                 errtest.style.marginTop = '7px';
+                 errtest.innerHTML =  'Perfect!'
+                 errtest.style.textAlign = 'center';
+                 errtest.style.fontFamily = 'helvetica'; 
+                 mtbut.disabled = false;
+                 mtbut.style.opacity = '2';
+               }  
+                 
+            });
+ 
+
+            mtb.addEventListener('keyup', ()=>{ 
+
+if(mtb.value.length > 8){
+   errtest.innerHTML = 'Second name length must not be more than 8 characters';
+   errtest.style.color = 'red';
+   errtest.style.fontSize = '16px';
+   errtest.style.fontWeight = 'bold'; 
+   errtest.style.marginTop = '7px';
+   errtest.style.fontFamily = 'helvetica';
+   errtest.style.textAlign = 'center';
+                 mtbut.disabled = true;
+                 mtbut.style.opacity = '0.2';
+}    
+
+else if(mtb.value.length < 6){
+   errtest.innerHTML = 'Second name length cannot be less than 6 characters';
+   errtest.style.color = 'red';
+   errtest.style.fontSize = '16px'; 
+   errtest.style.marginTop = '7px';
+   errtest.style.fontWeight = 'bold';
+   errtest.style.fontFamily = 'helvetica';
+   errtest.style.textAlign = 'center'; 
+                 mtbut.disabled = true;
+                 mtbut.style.opacity = '0.2';
+} 
+
+   else{
+    errtest.style.color = 'grey'; 
+   errtest.style.fontSize = '16px';
+   errtest.style.marginTop = '7px';
+   errtest.style.fontWeight = 'bold';
+   errtest.innerHTML =  'Perfect!'
+   errtest.style.textAlign = 'center';
+   errtest.style.fontFamily = 'helvetica';
+                 mtbut.disabled = false;
+                 mtbut.style.opacity = '2';   
+ }  
+    
+});     
+
+
+
+ 
+ 
+               
+    var ttmy = document.getElementById('ttmy');
+    ttmy.addEventListener('submit', async (t)=>{
+              t.preventDefault();     
+                mtbut.innerHTML = 'Submitting';  
+                var mtc = document.getElementById('txtbody'); 
+                errtest.innerHTML = '';
+                
+                mta.disabled = true; 
+                mtb.disabled = true;  
+                mtc.disabled = true;
+                mtbut.disabled = true; 
+                
+                const datatest = { 
+                          testimonyfn : mta.value,
+                          testimonysn : mtb.value,
+                          testimonytxt : mtc.value,
+                     }; 
+              
+                     try{
+                const response = await fetch('/postingtestimony', {
+                     
+                     method :'post',
+                     body : JSON.stringify(datatest),
+                     headers:{
+                                    'Content-Type':'application/json',
+                                    Accept:'application/json',
+                             }
+
+
+                });  
+
+                if(!response.ok) {
+                   throw response;
+                } 
+
+                alert('Thanks for sharing your testimony with us.');
+                location.reload();
+          }      
+
+          catch(err){
+            const error = await err.text();
+            alert(error);
+            location.reload();
+        }
+    
+    });
+
+     </script>
+ </body>
+ </html>

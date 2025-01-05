@@ -1,0 +1,147 @@
+ 
+
+   <!---android start--->
+<div style="overflow:scroll; display:block" class="navbar">
+  <div class="top"> <p>VOICE OF HOPE MINISTRIES INTERNATIONAL CHURCH OF GOD</p> <i class="fa fa-times cancelnav"></i>  </div>
+     <hr style="border:1px dotted white">
+  <ul>
+       <li><a href="/">Home</a></li>
+       <li><a href="/testimonies">Testimonies</a></li> 
+       <li><a href="/gallery">Gallery</a></li> 
+        <li><a href="/contact">Contact us</a></li>
+        <li><a href="/aboutus">About us</a></li>    
+       <li><a href="/share-testimony">Share Testimony</a></li>  
+       <li><a href="/blogposts">Blog</a></li> 
+       <li><a href="/upcoming-events">Upcoming events</a></li>
+       <% if(user && user.role === 'admin'){ %>
+        <a href="/admin-control"> <button id='createpostandroid'>Create Post</button> </a>  
+        <a href="/dashboard"> <button id='dashboardandroid'>Dashboard</button> </a>
+        <a href="/addtogallery"> <button>Add to Gallery</button> </a>
+        <% } else if(user) { %>
+          <a style="display:none" href="/dashboard"> <button>Dashboard</button> </a>
+        <% } else { %> 
+        <li><a href="/login">Login</a></li>
+     <% } %>
+   </ul>
+ </div>
+
+ <!---android end--->
+
+
+<div class='enclose'> 
+  <div class="navigationbar">  
+     <div class='sepflex'>
+         <img class="chlogo" alt="logo" src='/images/logo.jpg'>
+        <!--<p>ONOSCOCHURCH</p>-----> 
+      </div>
+         <a href="/">Home</a>
+          <a href="/contact">Contact us</a>
+          <a href="/aboutus">About us</a>
+          <a href="/gallery">Gallery</a>
+          <a href="/testimonies">Testimonies</a>
+          <a href="/share-testimony">Testify</a>
+          <a href="/upcoming-events">Upcoming events</a>
+          <div class='sepflexb'>
+              <a href="/blogposts">Blog</a> 
+              <i id="sortdown" class='fa fa-arrow-right'></i>
+          </div>    
+          <% if(user && user.role === 'admin'){ %>
+             <button id='createpost'>Create Post</button>    
+             <button id='addtogallb'>Add to Gallery</button> 
+           <button id='dashboard'>Dashboard</button>  
+        <% } else if(user) { %>
+           <button id='dashboardu'>Dashboard</button>  
+        <% } else { %>
+          <a id='login' href="/login">Login</a>
+          <button id='signup'>Sign up</button>  
+        <% } %>
+         <div class="androidbar"> 
+          <i style='color:white' class="fa fa-bars hambur"></i>
+         </div>
+   </div>   
+
+<!----Homebar start--> 
+    <div class="homebar">
+      <p class='big'>VOICE OF HOPE MINISTRIES INTERNATIONAL CHURCH OF GOD</p>
+      <p class="small">We are delighted to have you with us! Join us at our Church as we come together to love God and do good. Whether you’re here to worship, learn, or serve, you are an essential part of our community.</p>
+       <div style='display:flex'> <a href='/blogposts'>Explore now</a> <i class="fa fa-long-arrow-right"></i> </div>
+  </div>  
+  <!----Homebar end-->  
+
+</div>   
+
+
+<script> 
+
+document.addEventListener('DOMContentLoaded', () => {
+   // Wait for the DOM content to be fully loaded before executing JavaScript
+ 
+  var signup = document.getElementById('signup');
+  if(signup){
+        signup.onclick = ()=>{
+             window.location.href = '/signup';
+        }  
+      }
+
+
+    // Select the buttons and attach event listeners 
+    let hambur = document.querySelector('.hambur'); 
+   let cancelnav = document.querySelector('.cancelnav'); 
+   let navbar = document.querySelector('.navbar');       
+   let addtogall = document.querySelector('#addtogallb');      
+    
+   
+   
+   if(addtogall ){
+    addtogall .onclick = ()=>{  
+       window.location.href = '/addtogallery';
+      }
+    } 
+  
+ 
+     if(hambur){
+      hambur.onclick = ()=>{  
+        navbar.classList.add('active');
+      }
+     } 
+
+     if(cancelnav){
+     cancelnav.onclick = ()=>{ 
+        navbar.classList.remove('active');
+      }
+     } 
+
+     const dashboard = document.getElementById('dashboard');
+    const dashboardU = document.getElementById('dashboardu');
+
+    if (dashboard) {
+        dashboard.onclick = () => {
+            window.location.href = '/dashboard';
+        };
+    } 
+
+    if (dashboardU) {
+        dashboardU.onclick = () => {
+            window.location.href = '/dashboard';
+        };
+    }   
+
+    let cp = document.querySelector('#createpost'); 
+   let cpa = document.querySelector('#createpostandroid'); 
+   if(cp){ 
+      cp.onclick = ()=>{ 
+         window.location.href = '/publish-a-post'; 
+      }
+    }
+    
+    if(cpa){ 
+      cpa.onclick = ()=>{ 
+         window.location.href = '/publish-a-post'; 
+      }
+    }
+    
+
+    }); 
+  
+      
+</script>
