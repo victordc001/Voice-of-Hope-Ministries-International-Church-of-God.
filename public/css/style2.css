@@ -163,7 +163,7 @@ button:hover, i:hover{
 .enclose{ 
 	padding-left:20px;
 	padding-right:20px;
-	background-image:linear-gradient(rgba(0,0,0,0.30), rgba(0,0,0,0.50)), url('/images/onoch3.avif');
+	background-image:linear-gradient(rgba(0,0,0,0.30), rgba(0,0,0,0.50)), url('/images/vohbg.jpg');
     background-size:cover;  
 	background-repeat:no-repeat; 
 	padding-bottom:300px;
@@ -172,7 +172,7 @@ button:hover, i:hover{
 
   .navigationbar {   
 	position:fixed;
-	background-image:linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)), url('/images/onoch3.avif');
+	background-image:linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)), url('/images/vohbg.jpg');
     background-size:cover;  
 	background-repeat:no-repeat; 
 	transition:1s;     
