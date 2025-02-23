@@ -122,7 +122,7 @@ const flw = new Flutterwave(publickey, secretkey);
     
    // Home navigation
 app.get('/',  async (req, res) => {  
-   const con = await BlogDb.find(); 
+   const con = await BlogDb.find().sort({  date: -1 }); // Sorts in descending order (newest first); 
     // Ensure only three objects are retrieved
   const randomCon = con.slice(0, Math.min(3, con.length));
         res.render('./pages/index', {randomCon}); 
@@ -498,8 +498,8 @@ app.get('/blogposts', async (req,res)=>{
    //fetch data from mongodb  
     
      try{ 
-   const confe = await BlogDb.find();  
-   console.log(confe);
+      const confe = await BlogDb.find().sort({  date: -1 }); // Sorts in descending order (newest first)
+      console.log(confe);
    res.render('./pages/blog', {confe});  
      }  
 
